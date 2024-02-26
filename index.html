@@ -1,38 +1,196 @@
-<!DOCTYPE html>
-<html>
-
 <head>
-    <link rel="stylesheet" type="text/css" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" type="text/css" href="style.css" />
+  <style>
+  </style>
 </head>
 
-<body>
-    <div id="player-menu" class="menu">
-        <h1 id="player-name"></h1>
-        <p id="player-level"></p>
-        <div id="player-health-bar" class="health-bar"></div>
-        <div id="player-ultimate-bar" class="ultimate-bar"></div>
-        <p id="player-stats"></p>
+
+<div id="fullscreenContainer" class="parent">
+
+  <div class="container">
+    <div class="bar-container">
+      <div class="grey-bar" id="grey-bar-health">
+        <span>Max Health</span>
+      </div>
+      <div class="red-bar" id="red-bar-health">
+        <span></span>
+      </div>
+    </div>
+    <div class="bar-container">
+      <div class="grey-bar" id="grey-bar-mana">
+        <span>Max Mana</span>
+      </div>
+      <div class="blue-bar" id="blue-bar-mana">
+        <span></span>
+      </div>
+    </div>
+    <div class="squares-container">
+      <!-- Buttons will be populated here -->
+    </div>
+  </div>
+
+  <div id="overlappingDiv" class="child" style="
+        background-color: black;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        opacity: 0;
+        pointer-events: none;
+        z-index: 10;
+      "></div>
+  <canvas id="myCanvas"></canvas>
+
+
+  <div id="characterDialogueBox" style="
+       background-color: white;
+       height: 180px;
+       position: absolute;
+       bottom: 0;
+       left: 0;
+       right: 0;
+       border-top: 4px black solid;
+       display: none;
+       padding:12px;
+       z-index: 6;
+     "></div>
+
+  <div id="userInterface" class="child" style="display: none">
+    <!-- Represents health bar of draggle (enemy) -->
+    <div style="
+          background-color: white;
+          width: 500px;
+          position: absolute;
+          top: 50px;
+          left: 50px;
+          border: 4px black solid;
+          padding: 12px;
+        ">
+      <h1 id="enemyName" style="font-size: 32px">Draggle</h1>
+      <h1 id="enemyLevel" style="font-size:20px;padding-top:6px; padding-left: 12px; display: flex; ">Lv</h1>
+      <div style="position: relative">
+        <div style="height: 5px; background-color: #ccc; margin-top: 6px"></div>
+        <div id="enemyHealthBar" style="
+              height: 5px;
+              background-color: green;
+              position: absolute;
+              top: 0;
+              left: 0;
+              right: 0;
+            "></div>
+      </div>
     </div>
 
-    <div id="enemy-menu" class="menu">
-        <h1 id="enemy-name"></h1>
-        <p id="enemy-level"></p>
-        <div id="enemy-health-bar" class="health-bar"></div>
-        <div id="enemy-ultimate-bar" class="ultimate-bar"></div>
-        <p id="enemy-stats"></p>
+    <!-- Represents health bar of emby (us) -->
+    <div style="
+          background-color: white;
+          width: 500px;
+          position: absolute;
+          top: 600px;
+          right: 50px;
+          border: 4px black solid;
+          padding: 12px;
+        ">
+      <h1 style="font-size: 32px">Emby</h1>
+      <h1 id="playerLevel" style="font-size:20px;padding-top:6px; padding-left: 12px; display: flex; ">Lv</h1>
+      <div style="position: relative">
+        <div style="height: 5px; background-color: #ccc; margin-top: 6px"></div>
+        <div id="playerHealthBar" style="
+              height: 5px;
+              background-color: green;
+              position: absolute;
+              top: 0;
+              left: 0;
+              right: 0;
+            "></div>
+      </div>
     </div>
 
-    <canvas id="battlefield-overlay"></canvas>
-    <div id="battlefield">
-        <div class="row" id="row1"></div>
-        <div class="row" id="row2"></div>
-        <div class="row" id="row3"></div>
-        <div class="row" id="row4"></div>
-        <div class="row" id="row5"></div>
-        <div class="row" id="row6"></div>
+    <div style="
+          background-color: white;
+          height: 140px;
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          border-top: 4px black solid;
+          display: flex;
+        ">
+      <div id="dialogueBox" style="
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background-color: white;
+            padding: 12px;
+            display: none;
+            cursor: pointer;
+          ">
+      </div>
+      <div id="attacksBox" style="
+            width: 66.66%;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+          "></div>
+      <div style="
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 33.33%;
+            border-left: 4px black solid;
+          ">
+        <h1 id="attackType" style="font-size: 16px">Attack Type</h1>
+      </div>
     </div>
-    <script src="game.js"></script>
+  </div>
+</div>
 
+</div>
 </body>
+<br></br>
 
-</html>
+
+<div id="overlay" class="hidden-layer">
+  <div id="inventory" class="panel">
+    <h1>Inventory</h1>
+    <div class="panel-content">
+      <!-- Inventory items will go here -->
+    </div>
+  </div>
+  <div id="character" class="panel">
+    <h1>Equipped</h1>
+    <div class="panel-content" id="character-content">
+      <!-- Character items will go here -->
+    </div>
+    <div id="unequipAllButton" class="unequip-all-button">Unequip All</div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"
+  integrity="sha512-6+YN/9o9BWrk6wSfGxQGpt3EUK6XeHi6yeHV+TYD2GR0Sj/cggRpXr1BrAQf0as6XslxomMUxXp2vIl+fv0QRA=="
+  crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"
+  integrity="sha512-H6cPm97FAsgIKmlBA4s774vqoN24V5gSQL4yBTDOY2su2DeXZVhQPxFK4P6GPdnZqM9fg1G3cMv5wD7e6cFLZQ=="
+  crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script src="data/audio.js"></script>
+<script src="data/battleZones.js"></script>
+<script src="data/collisions.js"></script>
+<script src="data/attacks.js"></script>
+<script src="data/monsters.js"></script>
+<script src="data/characters.js"></script>
+<script src="data/enemies.js"></script>
+<script src="data/mapTravels.js"></script>
+<script src="data/maps.js"></script>
+<script src="js.js\utils.js"></script>
+<script src="classes.js"></script>
+<script src="inventory.js"></script>
+<script src="index.js"></script>
+<script src="player.js"></script>
+<script src="battleScene.js"></script>
