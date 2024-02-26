@@ -1,0 +1,134 @@
+body {
+  background-image: url('tree\ map.png'); /* replace 'path-to-your-image.jpg' with the actual path to your image */
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  height: 100vh; /* Full height */
+  width: 100vw; /* Full width */
+  margin: 0; /* remove default margins */
+  padding: 0; /* remove default padding */
+}
+
+
+#battlefield {
+  height: 100vh;
+  /* Adjusted height */
+  width: 66.67vw;
+  /* 2/3 of the viewport width */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto;
+  /* centers the element horizontally */
+  z-index: 1;
+}
+
+.row {
+  display: flex;
+  gap: 2vh;
+  /* this creates space between cells */
+  width: 100%;
+}
+
+.row>div {
+  height: 100%;
+  /* divs take up the entire height of their parent row */
+  width: calc(100% / 3);
+  background-color: rgba(255, 255, 255, 0); /* this will make the background fully transparent */
+  border: none;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+}
+
+
+#row1 {
+  width: 40%;
+  height: 10%;
+}
+
+#row2 {
+  width: 50%;
+  height: 12%;
+}
+
+#row3 {
+  width: 60%;
+  height: 14%;
+}
+
+#row4 {
+  width: 70%;
+  height: 16%;
+}
+
+#row5 {
+  width: 80%;
+  height: 18%;
+}
+
+#row6 {
+  width: 90%;
+  height: 30%;
+}
+
+
+#battlefield-overlay {
+  position: absolute;
+  height: 100vh;
+  width: 66.67vw;
+  /* 2/3 of the viewport width */
+  left: 0;
+  right: 0;
+  margin: auto;
+  z-index: 2;
+  /* place the overlay above the battlefield */
+}
+
+.menu {
+  width: 20vw;
+  height: 50vh;
+  background: #333;
+  color: white;
+  border: 2px solid white;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+#player-menu {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+#enemy-menu {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.health-bar, .action-bar {
+  width: 100%;
+  height: 20px;
+  background: #ccc;
+}
+
+.health-bar {
+  background: red;
+}
+
+.action-bar {
+  background: blue;
+}
+
+.ultimate-bar {
+  width: 100%;
+  height: 20px;
+  background: #ccc;
+}
+
+.ultimate-bar {
+  background: gold;
+}

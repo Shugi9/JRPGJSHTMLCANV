@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+
+<body>
+    <div id="player-menu" class="menu">
+        <h1 id="player-name"></h1>
+        <p id="player-level"></p>
+        <div id="player-health-bar" class="health-bar"></div>
+        <div id="player-ultimate-bar" class="ultimate-bar"></div>
+        <p id="player-stats"></p>
+    </div>
+
+    <div id="enemy-menu" class="menu">
+        <h1 id="enemy-name"></h1>
+        <p id="enemy-level"></p>
+        <div id="enemy-health-bar" class="health-bar"></div>
+        <div id="enemy-ultimate-bar" class="ultimate-bar"></div>
+        <p id="enemy-stats"></p>
+    </div>
+
+    <canvas id="battlefield-overlay"></canvas>
+    <div id="battlefield">
+        <div class="row" id="row1"></div>
+        <div class="row" id="row2"></div>
+        <div class="row" id="row3"></div>
+        <div class="row" id="row4"></div>
+        <div class="row" id="row5"></div>
+        <div class="row" id="row6"></div>
+    </div>
+    <script src="game.js"></script>
+
+</body>
+
+</html>
